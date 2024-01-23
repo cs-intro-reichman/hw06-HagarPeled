@@ -21,6 +21,18 @@ public class Runigram {
 		imageOut = flippedHorizontally(tinypic);
 		System.out.println();
 		print(imageOut);
+
+		imageOut = flippedVertically(tinypic);
+		System.out.println();
+		print(imageOut);
+
+		Color originalColor = new Color(255, 0, 255);
+        Color luminanceColor = luminance(originalColor);
+		print(luminanceColor);
+
+		imageOut = grayScaled(tinypic);
+		System.out.println();
+		print(imageOut);
 		
 		//// Write here whatever code you need in order to test your work.
 		//// You can reuse / overide the contents of the imageOut array.
@@ -35,14 +47,26 @@ public class Runigram {
 		int numCols = in.readInt();
 		int numRows = in.readInt();
 		in.readInt();
+		String line;
 		// Creates the image array
 		Color[][] image = new Color[numRows][numCols];
 		// Reads the RGB values from the file, into the image array. 
 		// For each pixel (i,j), reads 3 values from the file,
 		// creates from the 3 colors a new Color object, and 
 		// makes pixel (i,j) refer to that object.
-		//// Replace the following statement with your code.
-		return null;
+		for (int i = 0; i <= numRows-1; i++) {
+			line = in.readLine();
+			if (line != " ") {
+				for (int j = 0; j <= numCols-1; j++) {
+					int red = in.readInt();
+					int green = in.readInt();
+					int blue = in.readInt();
+					image[i][j] = new Color(red, green, blue);	
+				}
+			}
+
+		}
+		return image;
 	}
 
     // Prints the RGB values of a given color.
@@ -60,39 +84,81 @@ public class Runigram {
 	// For example, to check that some image processing function works correctly,
 	// we can apply the function and then use this function to print the resulting image.
 	private static void print(Color[][] image) {
-		//// Replace this comment with your code
+		int rows = image.length;
+		int columns = image[0].length;
+
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				System.out.print("(");
+				System.out.printf("%3s,", image[i][j].getRed());   // Prints the red component
+				System.out.printf("%3s,", image[i][j].getGreen()); // Prints the green component
+				System.out.printf("%3s",  image[i][j].getBlue());  // Prints the blue component
+				System.out.print(")  ");
+			}
+			System.out.println();
+		}
 	}
 	
 	/**
 	 * Returns an image which is the horizontally flipped version of the given image. 
 	 */
 	public static Color[][] flippedHorizontally(Color[][] image) {
-		//// Replace the following statement with your code
-		return null;
+		int rows = image.length;
+		int columns = image[0].length;
+		Color [][] flippedHorizontally = new Color[rows][columns];
+
+		for (int i = 0; i <= rows - 1; i++) {
+			for (int j = 0; j <= columns - 1; j++) {
+				flippedHorizontally[i][j] = image[i][columns - 1 -j];
+			}
+		}
+
+		return flippedHorizontally;
 	}
 	
 	/**
 	 * Returns an image which is the vertically flipped version of the given image. 
 	 */
 	public static Color[][] flippedVertically(Color[][] image){
-		//// Replace the following statement with your code
-		return null;
+		int rows = image.length;
+		int columns = image [0].length;
+		Color [][] flippedVertically = new Color[rows][columns];
+
+		for (int i = 0; i <= rows - 1; i++){
+			for (int j = 0; j<= columns - 1; j++){
+				flippedVertically [i][j] = image [rows - 1 - i][j];
+			}
+		}
+		return flippedVertically;
 	}
 	
 	// Computes the luminance of the RGB values of the given pixel, using the formula 
 	// lum = 0.299 * r + 0.587 * g + 0.114 * b, and returns a Color object consisting
 	// the three values r = lum, g = lum, b = lum.
 	public static Color luminance(Color pixel) {
-		//// Replace the following statement with your code
-		return null;
+		int r = pixel.getRed();
+		int g = pixel.getGreen();
+		int b = pixel.getBlue();
+
+		int lum = (int) Math.round((0.299 * r + 0.587 * g + 0.114 * b));
+		lum = Math.min(255, Math.max(0,lum));
+		return new Color(lum,lum, lum);
 	}
 	
 	/**
 	 * Returns an image which is the grayscaled version of the given image.
 	 */
 	public static Color[][] grayScaled(Color[][] image) {
-		//// Replace the following statement with your code
-		return null;
+		int rows = image.length;
+		int columns = image[0].length;
+		Color [][] greyScaledImage = new Color[rows][columns];
+
+		for (int i = 0; i <= rows - 1; i++) {
+			for (int j = 0; j <= columns - 1; j++) {
+				greyScaledImage [i][j] = luminance(image[i][j]);
+			}
+		}
+		return greyScaledImage;
 	}	
 	
 	/**
