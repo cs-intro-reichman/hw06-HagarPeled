@@ -242,7 +242,7 @@ public class Runigram {
 		int targetColumns = target[0].length;
 
 		if (sourceRows != targetRows || sourceColumns != targetColumns) {
-			target = scaled(target, sourceRows, sourceColumns);
+			target = scaled(target, sourceColumns, sourceRows);
 		}
 		for (int i = 0; i <= n; i++) {
 			double alpha = (double) (n - i) / n;
