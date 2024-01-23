@@ -37,6 +37,12 @@ public class Runigram {
 		imageOut = scaled(tinypic, 3, 5);
 		System.out.println();
 		print(imageOut);
+
+		Color c1 = new Color(100, 40, 100);
+		Color c2 = new Color(200, 20, 40);
+		double alpha = 0.25;
+		Color blendedColor = blend(c1, c2, alpha);
+		System.out.println(blendedColor);
 		
 		//// Write here whatever code you need in order to test your work.
 		//// You can reuse / overide the contents of the imageOut array.
@@ -191,8 +197,11 @@ public class Runigram {
 	 * values in the two input color.
 	 */
 	public static Color blend(Color c1, Color c2, double alpha) {
-		//// Replace the following statement with your code
-		return null;
+		int red = (int) Math.round(alpha *c1.getRed() + (1  - alpha) * c2.getRed());
+		int green = (int) Math.round(alpha *c1.getGreen() + (1  - alpha) * c2.getGreen());
+		int blue = (int) Math.round(alpha *c1.getBlue() + (1  - alpha) * c2.getBlue());
+		
+		return new Color (red, green, blue);
 	}
 	
 	/**
