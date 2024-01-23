@@ -236,7 +236,22 @@ public class Runigram {
 	 * of the source image.
 	 */
 	public static void morph(Color[][] source, Color[][] target, int n) {
-		//// Replace this comment with your code
+		int sourceRows = source.length;
+		int sourceColumns = source[0].length;
+		int targetRows = target.length;
+		int targetColumns = target[0].length;
+
+		if (sourceRows != targetRows || sourceColumns != targetColumns) {
+			target = scaled(target, sourceRows, sourceColumns);
+		}
+		for (int i = 0; i <= n; i++) {
+			double alpha = (double) (n - i) / n;
+			Color[][] morphedImage = blend(source, target, alpha);
+
+			Runigram.display(morphedImage);
+			StdDraw.pause(500);
+
+		}
 	}
 	
 	/** Creates a canvas for the given image. */
