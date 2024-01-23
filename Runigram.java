@@ -43,6 +43,11 @@ public class Runigram {
 		double alpha = 0.25;
 		Color blendedColor = blend(c1, c2, alpha);
 		System.out.println(blendedColor);
+
+		imageOut = blend(tinypic, tinypic, 0.25);
+		System.out.println();
+		print(imageOut);
+
 		
 		//// Write here whatever code you need in order to test your work.
 		//// You can reuse / overide the contents of the imageOut array.
@@ -211,8 +216,17 @@ public class Runigram {
 	 * The two images must have the same dimensions.
 	 */
 	public static Color[][] blend(Color[][] image1, Color[][] image2, double alpha) {
-		//// Replace the following statement with your code
-		return null;
+		int rows = image1.length;
+		int columns= image1[0].length;
+		Color [][] blendedImage = new Color[rows][columns];
+
+		for (int i = 0; i <= rows - 1; i++) {
+			for (int j = 0; j <= columns - 1; j++) {
+				Color blendedPixel = blend(image1[i][j], image2[i][j], alpha);
+				blendedImage [i][j]= blendedPixel;
+			}
+		}
+		return blendedImage;
 	}
 
 	/**
